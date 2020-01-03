@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>game 1</title>
+    </head>
+    <body>
+        <canvas id="id-canvas" width="600" height="300"></canvas>
+    </body>
+
+<script>
+    var log = console.log.bind(console)
+
+    var imageFromPath = function(path) {
+        var img = new Image()
+        img.src = path
+        return img
+    }
+
+    var Paddle = function(image) {
+        var o = {
+            image: image, 
+            x: 50,
+            y: 200,
+            speed: 10,
+        }
+        o.moveLeft = function() {
+            o.x -= o.speed
+        }
+        o.moveRight = function() {
+            o.x += o.speed
+        }
+        return o
+    }
+
+    var GuaGame = function() {
+        var o = {
+
+        }
+        
+    }
+    var __main = function() {
+        var canvas = document.querySelector('#id-canvas')
+        var context = canvas.getContext('2d')
+
+        var img = imageFromPath('./paddle.png')
+        var paddle = Paddle(img)
+
+        window.addEventListener('keydown', function(event) {
+            log('keyDown', event)
+            if(event.key === 'a') {
+                paddle.moveLeft()
+            }
+            if(event.key === 'd') {
+                paddle.moveRight()
+            }
+        })
+        // window.addEventListener('keyup', function(event) {
+        //     log('keyUp')
+        //     if(event.key === 'a') {
+        //         left = false
+        //     }
+        //     if(event.key === 'd') {
+        //         right = false
+        //     }
+        // })
+        
+        setInterval(function() {
+            context.clearRect(0, 0, 600, 300)
+
+            // draw
+            context.drawImage(paddle.image, paddle.x, paddle.y)           
+        }, 1000/30)
+
+        
+    }
+
+    __main()
+    
+    
+
+    
+
+</script>
+
+<style>
+    #id-canvas {
+        border: black 1px solid;
+    }
+</style>
+</html>
